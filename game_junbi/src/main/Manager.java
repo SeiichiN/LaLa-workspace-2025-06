@@ -4,8 +4,8 @@ public class Manager {
 	public void start() {
 		Board board = new Board();
 		board.makeMap();
-		GameObject gobj = new GameObject("ゴブリン", 'g');
-		gobj.setPosition(board);
+		GameObject goblin = new GameObject("ゴブリン", 'g');
+		goblin.setPosition(board);
 		board.printMap();
 		
 	}
