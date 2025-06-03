@@ -8,6 +8,7 @@ public class SuperHero extends Hero {
 	}
 	public SuperHero(String name) {
 		super(name);
+		System.out.println("SuperHeroのコンストラクタ");
 	}
 	
 	@Override

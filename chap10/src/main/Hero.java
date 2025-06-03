@@ -2,13 +2,14 @@ package main;
 
 public class Hero {
 	String name;
-	int hp = 100;
+	public int hp = 100;
 
 	public Hero() {
 		this("名無し");
 	}
 	public Hero(String name) {
 		this.name = name;
+		// System.out.println("Heroコンストラクタ");
 	}
 	
 	public void attack(Matango m) {
