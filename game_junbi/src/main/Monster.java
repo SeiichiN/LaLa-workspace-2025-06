@@ -27,6 +27,8 @@ public abstract class Monster extends GameObject implements IAttackCharacter {
 	 *    3
 	 */
 	public void move(Board board) {
+		int _y = y;
+		int _x = x;
 		int dir = new Random().nextInt(5);
 	   	switch (dir) {
     	case 1 -> {
@@ -49,7 +51,8 @@ public abstract class Monster extends GameObject implements IAttackCharacter {
     		
     	}
     	}
- 		
+	   	board.map[_y][_x] = '.';
+	   	board.map[y][x] = this.suffix;
 	}
 	
 }

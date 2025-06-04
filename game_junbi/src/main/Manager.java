@@ -1,20 +1,46 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Manager {
+	Board board;
+	Goblin goblin;
+	Slime slime;
+	Potion potion;
+	Ether ether;
+	Hero hero;
+	List<Monster> monsters;
+	List<Item> items;
+	
 	public void start() {
-		Board board = new Board();
-		Goblin goblin = new Goblin("ゴブリン", 'g');
+		init();
+		MoveManager mm = new MoveManager(hero, monsters, board);
+		mm.start();
+		// goblin.attack(hero);
+		// slime.attack(hero);
+	}
+	
+	private void init() {
+		board = new Board();
+		monsters = new ArrayList<>();
+		goblin = new Goblin();
 		goblin.setPosition(board);
-		Slime slime  = new Slime("スライム", 's');
+		monsters.add(goblin);
+		slime  = new Slime();
 		slime.setPosition(board);
-		Potion potion = new Potion("ポーション", 'p');
+		monsters.add(slime);
+		
+		items = new ArrayList<>();
+		potion = new Potion();
 		potion.setPosition(board);
-		Ether ether = new Ether("エーテル", 'e');
+		items.add(potion);
+		ether = new Ether();
 		ether.setPosition(board);
-		Hero hero = new Hero("勇者", '@');
+		items.add(ether);
+		hero = new Hero();
 		hero.setPosition(board);
 		board.printMap();
-		goblin.attack(hero);
-		slime.attack(hero);
+		
 	}
 }

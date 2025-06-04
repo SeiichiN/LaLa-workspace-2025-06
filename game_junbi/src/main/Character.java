@@ -34,6 +34,8 @@ public abstract class Character implements IAttackMonster {
     }
     
     public char move(Board board) {
+    	int _y = y;
+    	int _x = x;
     	System.out.print("A:← W:↑ S:↓ D:→ Q:戻る > ");
     	@SuppressWarnings("resource")
 		char dir = new Scanner(System.in).next().charAt(0);
@@ -57,6 +59,8 @@ public abstract class Character implements IAttackMonster {
     		if (x >= board.xsize) x = board.xsize - 1;
     	}
     	}
+    	board.map[_y][_x] = '.';
+    	board.map[y][x] = this.suffix;
     	return 'm';
     }
 }
