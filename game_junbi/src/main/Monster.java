@@ -55,4 +55,7 @@ public abstract class Monster extends GameObject implements IAttackCharacter {
 	   	board.map[y][x] = this.suffix;
 	}
 	
+	public String toString() {
+		return this.name;
+	}
 }

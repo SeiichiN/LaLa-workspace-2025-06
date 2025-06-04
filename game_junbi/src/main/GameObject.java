@@ -20,4 +20,8 @@ public class GameObject {
     	} while (board.map[y][x] != '.');
     	board.map[y][x] = suffix;
     }
+    
+    public String toString() {
+    	return name;
+    }
 }

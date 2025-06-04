@@ -21,11 +21,15 @@ public class Board {
 			}
 		}
 	}
-	public void printMap() {
+	public void printMap(Character c) {
 		for (int y = 0; y < ysize; y++) {
 			System.out.print("|");
 			for (int x = 0; x < xsize; x++) {
-				System.out.print(map[y][x] + "|");
+				if (y == c.y && x == c.x) {
+					System.out.print("@|");
+				} else {
+					System.out.print(map[y][x] + "|");
+				}
 			}
 			System.out.println();
 		}

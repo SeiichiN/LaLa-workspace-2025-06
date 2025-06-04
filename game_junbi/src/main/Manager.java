@@ -15,8 +15,18 @@ public class Manager {
 	
 	public void start() {
 		init();
-		MoveManager mm = new MoveManager(hero, monsters, board);
-		mm.start();
+		MoveManager mm = new MoveManager(hero, monsters, items, board);
+		GameObject gameObject = mm.start();
+		if (gameObject instanceof Monster) {
+			Monster m = (Monster)gameObject;
+			System.out.println(m + "が現れた！");
+			BattleManager battleManager = new BattleManager();
+			battleManager.fight(hero, m);
+		}
+		if (gameObject instanceof Item) {
+			Item i = (Item)gameObject;
+			System.out.println(i + "が落ちている！");
+		}
 		// goblin.attack(hero);
 		// slime.attack(hero);
 	}
@@ -40,7 +50,7 @@ public class Manager {
 		items.add(ether);
 		hero = new Hero();
 		hero.setPosition(board);
-		board.printMap();
+		board.printMap(hero);
 		
 	}
 }
