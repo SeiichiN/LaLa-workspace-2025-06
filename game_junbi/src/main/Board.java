@@ -9,6 +9,7 @@ public class Board {
 		this.ysize = ysize;
 		this.xsize = xsize;
 		map = new char[this.ysize][this.xsize];
+		makeMap();
 	}
 	public Board() {
 		this(5, 5);

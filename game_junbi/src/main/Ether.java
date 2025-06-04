@@ -7,5 +7,8 @@ public class Ether extends Item {
 		super(name, suffix);
 		recovMp = 50;
 	}
+	public Ether() {
+		this("エーテル", 'e');
+	}
 
 }

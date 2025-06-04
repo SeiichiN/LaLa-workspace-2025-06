@@ -3,7 +3,6 @@ package main;
 public class Manager {
 	public void start() {
 		Board board = new Board();
-		board.makeMap();
 		Goblin goblin = new Goblin("ゴブリン", 'g');
 		goblin.setPosition(board);
 		Slime slime  = new Slime("スライム", 's');

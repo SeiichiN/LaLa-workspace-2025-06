@@ -7,5 +7,8 @@ public class Potion extends Item {
 		super(name, suffix);
 		recovHp = 100;
 	}
+	public Potion() {
+		this("ポーション", 'p');
+	}
 
 }
