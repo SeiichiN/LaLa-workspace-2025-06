@@ -16,19 +16,33 @@ public class Manager {
 	public void start() {
 		init();
 		MoveManager mm = new MoveManager(hero, monsters, items, board);
-		GameObject gameObject = mm.start();
-		if (gameObject instanceof Monster) {
-			Monster m = (Monster)gameObject;
-			System.out.println(m + "が現れた！");
-			BattleManager battleManager = new BattleManager();
-			battleManager.fight(hero, m);
+		while (true) {
+			GameObject gameObject = mm.start();
+			if (gameObject instanceof Monster) {
+				Monster m = (Monster)gameObject;
+				System.out.println(m + "が現れた！");
+				BattleManager battleManager = new BattleManager();
+				battleManager.fight(hero, m);
+				checkBattleResult(hero, m);
+			}
+			if (gameObject instanceof Item) {
+				Item i = (Item)gameObject;
+				System.out.println(i + "が落ちている！");
+			}
 		}
-		if (gameObject instanceof Item) {
-			Item i = (Item)gameObject;
-			System.out.println(i + "が落ちている！");
+	}
+	
+	private void checkBattleResult(Character c, Monster m) {
+		if (m.hp <= 0) {
+			board.map[m.y][m.x] = '.';
+			if (m instanceof Slime) slime = null;
+			if (m instanceof Goblin) goblin = null;
 		}
-		// goblin.attack(hero);
-		// slime.attack(hero);
+		if (c.hp <= 0) {
+			System.out.println(c.name + "は倒れてしまった！");
+			System.out.println("GAME OVER");
+			System.exit(0);
+		}
 	}
 	
 	private void init() {
