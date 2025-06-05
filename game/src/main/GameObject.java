@@ -2,15 +2,22 @@ package main;
 
 import java.util.Random;
 
-public class GameObject {
+public abstract class GameObject {
     int y;
     int x;
     String name;
+    char suffix;
+    
+    public GameObject(String name, char suffix) {
+    	this.name = name;
+    	this.suffix = suffix;
+    }
     
     public void setPosition(Board board) {
     	do {
-    		int y = new Random().nextInt(board.ysize);
-    		int x = new Random().nextInt(board.xsize);
+    		this.y = new Random().nextInt(board.ysize);
+    		this.x = new Random().nextInt(board.xsize);
     	} while (board.map[y][x] != '.');
+    	board.map[y][x] = suffix;
     }
 }
