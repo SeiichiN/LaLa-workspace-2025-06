@@ -24,6 +24,7 @@ public class MoveManager {
 				m.move(board);
 			}
 			board.printMap(hero);
+			// heroの場所にgameObjectがあるかどうか
 			gameObject = checkGameObject();
 			if (gameObject != null) {
 				break;
@@ -35,10 +36,21 @@ public class MoveManager {
 	
 	private GameObject checkGameObject() {
 		GameObject gameObject = null;
-		for (Monster m : monsters) {
-			if (m.y == hero.y && m.x == hero.x) {
-				gameObject = m;
+		if (board.map[hero.y][hero.x] == 'g') {
+			for (Monster m : monsters) {
+				if (m instanceof Goblin) {
+					gameObject = m;
+				}
 			}
+			
+		}
+		if (board.map[hero.y][hero.x] == 's') {
+			for (Monster m : monsters) {
+				if (m instanceof Slime) {
+					gameObject = m;
+				}
+			}
+			
 		}
 		for (Item i : items) {
 			if (i.y == hero.y && i.x == hero.x) {

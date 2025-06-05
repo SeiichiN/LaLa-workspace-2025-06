@@ -14,7 +14,8 @@ public class Slime extends Monster {
 	public void attack(Character c) {
 		System.out.println(this.name + "は毒をばらまいた！");
 		int damage = new Random().nextInt(IAttackCharacter.attackP - 10) + 10;
-		System.out.println(this.name + "に" + damage + "ポイントのダメージを与えた！");
+		c.hp -= damage;
+		System.out.println(c.name + "に" + damage + "ポイントのダメージを与えた！");
 	}
 
 }

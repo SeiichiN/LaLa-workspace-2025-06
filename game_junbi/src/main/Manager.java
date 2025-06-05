@@ -35,8 +35,7 @@ public class Manager {
 	private void checkBattleResult(Character c, Monster m) {
 		if (m.hp <= 0) {
 			board.map[m.y][m.x] = '.';
-			if (m instanceof Slime) slime = null;
-			if (m instanceof Goblin) goblin = null;
+			m.suffix = '.';
 		}
 		if (c.hp <= 0) {
 			System.out.println(c.name + "は倒れてしまった！");
@@ -46,23 +45,23 @@ public class Manager {
 	}
 	
 	private void init() {
-		board = new Board();
-		monsters = new ArrayList<>();
-		goblin = new Goblin();
+		this.board = new Board();
+		this.monsters = new ArrayList<>();
+		this.goblin = new Goblin();
 		goblin.setPosition(board);
 		monsters.add(goblin);
-		slime  = new Slime();
+		this.slime  = new Slime();
 		slime.setPosition(board);
 		monsters.add(slime);
 		
-		items = new ArrayList<>();
-		potion = new Potion();
+		this.items = new ArrayList<>();
+		this.potion = new Potion();
 		potion.setPosition(board);
 		items.add(potion);
-		ether = new Ether();
+		this.ether = new Ether();
 		ether.setPosition(board);
 		items.add(ether);
-		hero = new Hero();
+		this.hero = new Hero();
 		hero.setPosition(board);
 		board.printMap(hero);
 		
