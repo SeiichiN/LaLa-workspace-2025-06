@@ -3,11 +3,13 @@ package main;
 import java.util.Random;
 
 public abstract class Monster extends GameObject {
-	int attackP;
+	int hp;
+	int attackP;  // 最大攻撃値
 
 	public Monster(String name, char suffix) {
 		super(name, suffix);
-		attackP = 30;
+		this.hp = 100;
+		this.attackP = 30;
 	}
 	
 	public void attack(Character c) {
