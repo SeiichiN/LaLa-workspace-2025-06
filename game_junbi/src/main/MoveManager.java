@@ -42,7 +42,6 @@ public class MoveManager {
 					gameObject = m;
 				}
 			}
-			
 		}
 		if (board.map[hero.y][hero.x] == 's') {
 			for (Monster m : monsters) {
@@ -50,6 +49,8 @@ public class MoveManager {
 					gameObject = m;
 				}
 			}
+		}
+		if (board.map[hero.y][hero.x] == 'p') {
 			
 		}
 		for (Item i : items) {
@@ -59,4 +60,21 @@ public class MoveManager {
 		}
 		return gameObject;
 	}
+	
+	private GameObject findClass(String className) {
+		/*
+		Class<?> cname;
+		try {
+			cname = Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		for (Item i : items) {
+			if (i instanceof cname) {
+				return i;
+			}
+		}*/
+		return null;
+	}
+	
 }
