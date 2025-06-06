@@ -15,16 +15,20 @@ public class Board {
 	}
 	public void makeMap() {
 		for (int y = 0; y < ysize; y++) {
-			for (int x = 0; x < xsize; x++) {
+			for (int x = 0; x < xsize; x++) {				
 				map[y][x] = '.';
 			}
 		}
 	}
-	public void printMap() {
+	public void printMap(Character c) {
 		for (int y = 0; y < ysize; y++) {
 			System.out.print("|");
 			for (int x = 0; x < xsize; x++) {
-				System.out.print(map[y][x] + "|");
+				if (y == c.y && x == c.x) {
+					System.out.print(c.suffix + "|");
+				} else {
+					System.out.print(map[y][x] + "|");
+				}
 			}
 			System.out.println();
 		}
