@@ -1,7 +1,8 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public abstract class Character implements IAttackMonster {
     int y;
@@ -9,11 +10,15 @@ public abstract class Character implements IAttackMonster {
     String name;
     char suffix;
     int hp;
+    int mp;
+    List<Item> items;
     
     public Character(String name, char suffix) {
     	this.name = name;
     	this.suffix = suffix;
     	this.hp = 100;
+    	this.mp = 50;
+    	items = new ArrayList<>();
     }
     
     public void setPosition(Board board) {
@@ -22,6 +27,7 @@ public abstract class Character implements IAttackMonster {
     }
     
     public void attack(Monster m) {
+		System.out.println();
     	System.out.println(this.name + "による攻撃！");
     	int damage = new Random().nextInt(IAttackMonster.attackP + 1);
     	if (damage == 0) {
@@ -33,29 +39,62 @@ public abstract class Character implements IAttackMonster {
     }
     
     public char move(Board board) {
-    	System.out.print("A:← W:↑ S:↓ D:→ Q:戻る > ");
-    	@SuppressWarnings("resource")
-		char dir = new Scanner(System.in).next().charAt(0);
+    	char dir = Util.choice("A:← W:↑ S:↓ D:→ Q:その他 > ");
     	if (dir < 'a') dir = (char)(dir + ' ');
     	if (dir == 'q') return 'q';
     	switch (dir) {
     	case 'w' -> {
-    		y -= 1;
-    		if (y < 0) y = 0;
+    		y = Math.max(y-1, 0);
     	}
     	case 's' -> {
-    		y += 1;
-    		if (y >= board.ysize) y = board.ysize - 1;
+    		y = Math.min(y+1, board.ysize - 1);
     	}
     	case 'a' -> {
-    		x -= 1;
-    		if (x < 0) x = 0;
+    		x = Math.max(x-1, 0);
     	}
     	case 'd' -> {
-    		x += 1;
-    		if (x >= board.xsize) x = board.xsize - 1;
+    		x = Math.min(x+1, board.xsize - 1);
     	}
     	}
     	return 'm';
+    }
+    
+    public void take(Item i, Board board) {
+    	items.add(i);
+    	board.map[i.y][i.x] = '.';
+    	System.out.println(i.name + "を装備した");
+    }
+    
+    public void info() {
+    	System.out.print("HP:" + this.hp + " MP:" + this.mp);
+    	System.out.print(" 装備:");
+    	for (Item i : items) {
+    		System.out.print(" " + i);
+    	}
+    	System.out.println();
+    }
+    
+    public void useItem() {
+    	for (int i = 0; i < items.size(); i++) {
+    		System.out.print(" " + i + ":" + items.get(i));
+    	}
+    	char ch = Util.choice("どれを使う？ > ");
+    	int n = ch - '0';
+    	System.out.println(this.name + "は" + items.get(n) + "を使った");
+    	switch (n) {
+    	case 0 -> {
+    		if (items.get(n) instanceof Potion p) {
+        		this.hp = p.recovHp;
+        		p.recovHp = 0;
+    		}
+    	}
+    	case 1 -> {
+    		if (items.get(n) instanceof Ether e) {
+    			this.mp = e.recovMp;
+    			e.recovMp = 0;
+    		}
+    	}
+    	}
+    	items.remove(n);
     }
 }

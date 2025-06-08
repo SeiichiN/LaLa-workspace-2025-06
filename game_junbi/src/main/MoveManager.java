@@ -15,51 +15,25 @@ public class MoveManager {
 		this.board = board;
 	}
 	
-	public GameObject start() {
-		GameObject gameObject = null;
-		while (true) {
-			char ch = hero.move(board);
-			if (ch == 'q') break;
-			for (Monster m : monsters) {
-				m.move(board);
+	public void execute() {
+		char ch = hero.move(board);
+		for (Monster m : monsters) {
+			m.move(board);
+		}
+		if (ch == 'q') {
+			ch = Util.choice("i:状態 t:使う > ");
+			switch (ch) {
+			case 'i' -> {
+				hero.info();
 			}
-			board.printMap(hero);
-			// heroの場所にgameObjectがあるかどうか
-			gameObject = checkGameObject();
-			if (gameObject != null) {
-				break;
+			case 't' -> {
+				hero.useItem();
+			}
 			}
 		}
-		System.out.println("move終了");
-		return gameObject;
+		board.printMap(hero);
 	}
 	
-	private GameObject checkGameObject() {
-		GameObject gameObject = null;
-		if (board.map[hero.y][hero.x] == 'g') {
-			for (Monster m : monsters) {
-				if (m instanceof Goblin) {
-					gameObject = m;
-				}
-			}
-		}
-		if (board.map[hero.y][hero.x] == 's') {
-			for (Monster m : monsters) {
-				if (m instanceof Slime) {
-					gameObject = m;
-				}
-			}
-		}
-		if (board.map[hero.y][hero.x] == 'p') {
-			
-		}
-		for (Item i : items) {
-			if (i.y == hero.y && i.x == hero.x) {
-				gameObject = i;
-			}
-		}
-		return gameObject;
-	}
 	
 	private GameObject findClass(String className) {
 		/*

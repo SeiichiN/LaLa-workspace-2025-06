@@ -16,8 +16,9 @@ public class Manager {
 	public void start() {
 		init();
 		MoveManager mm = new MoveManager(hero, monsters, items, board);
+		// mm.execute();
 		while (true) {
-			GameObject gameObject = mm.start();
+			GameObject gameObject = checkGameObject();
 			if (gameObject instanceof Monster) {
 				Monster m = (Monster)gameObject;
 				System.out.println(m + "が現れた！");
@@ -28,9 +29,25 @@ public class Manager {
 			if (gameObject instanceof Item) {
 				Item i = (Item)gameObject;
 				System.out.println(i + "が落ちている！");
+				char ch = Util.choice("どうする？ t:拾う n:拾わない > ");
+				hero.take(i, board);
 			}
+			mm.execute();
 		}
 	}
+	
+	private GameObject checkGameObject() {
+		char ch = board.map[hero.y][hero.x];
+		GameObject gameObject = switch (ch) {
+		case 'g' -> goblin;
+		case 's' -> slime;
+		case 'p' -> potion;
+		case 'e' -> ether;
+		default -> null;
+		};
+		return gameObject;
+	}
+	
 	
 	private void checkBattleResult(Character c, Monster m) {
 		if (m.hp <= 0) {

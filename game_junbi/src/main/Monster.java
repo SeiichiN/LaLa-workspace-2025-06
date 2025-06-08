@@ -27,32 +27,33 @@ public abstract class Monster extends GameObject implements IAttackCharacter {
 	 *    3
 	 */
 	public void move(Board board) {
-		int _y = y;
-		int _x = x;
+		int old_y = y;
+		int old_x = x;
 		int dir = new Random().nextInt(5);
 	   	switch (dir) {
     	case 1 -> {
-    		y -= 1;
-    		if (y < 0) y = 0;
+    		y = Math.max(y - 1, 0);
     	}
     	case 3 -> {
-    		y += 1;
-    		if (y >= board.ysize) y = board.ysize - 1;
+    		y = Math.min(y + 1, board.ysize - 1);
     	}
     	case 4 -> {
-    		x -= 1;
-    		if (x < 0) x = 0;
+    		x = Math.max(x - 1, 0);
     	}
     	case 2 -> {
-    		x += 1;
-    		if (x >= board.xsize) x = board.xsize - 1;
+    		x = Math.min(x + 1, board.xsize - 1);
     	}
     	default -> {
     		
     	}
     	}
-	   	board.map[_y][_x] = '.';
-	   	board.map[y][x] = this.suffix;
+	   	if (board.map[y][x] == '.') {
+		   	board.map[old_y][old_x] = '.';
+		   	board.map[y][x] = this.suffix;
+	   	} else {
+	   		y = old_y;
+	   		x = old_x;
+	   	}
 	}
 	
 	public String toString() {

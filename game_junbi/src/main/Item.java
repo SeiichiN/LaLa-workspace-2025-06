@@ -6,4 +6,7 @@ public abstract class Item extends GameObject {
 		super(name, suffix);
 	}
 	
+	public String toString() {
+		return this.name;
+	}
 }
